@@ -32,6 +32,8 @@ namespace Lykke.Service.ClientReminder.Services
 
         private async Task ProcessReminders()
         {
+            await _log.WriteInfoAsync(nameof(ClientReminderTimerDrivenEntryPoint), $"timer period driven {nameof(ProcessReminders)}()", $"started {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}");
+
             try
             {
                 var remindersToProcess = await _clientReminderService.GetRemindersWhichTimeHasCome();
@@ -49,8 +51,10 @@ namespace Lykke.Service.ClientReminder.Services
             }
             catch (Exception ex)
             {
-                await _log.WriteErrorAsync(nameof(ClientReminderTimerDrivenEntryPoint), $"timer period {nameof(ProcessReminders)}()", ex);
+                await _log.WriteErrorAsync(nameof(ClientReminderTimerDrivenEntryPoint), $"timer period driven {nameof(ProcessReminders)}()", ex);
             }
+
+            await _log.WriteInfoAsync(nameof(ClientReminderTimerDrivenEntryPoint), $"timer period driven {nameof(ProcessReminders)}()", $"completed {DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss")}");
         }
     }
 }
