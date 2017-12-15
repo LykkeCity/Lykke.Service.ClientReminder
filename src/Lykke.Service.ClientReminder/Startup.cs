@@ -52,7 +52,7 @@ namespace Lykke.Service.ClientReminder
 
                 services.AddSwaggerGen(options =>
                 {
-                    options.DefaultLykkeConfiguration("v1", "ClientReminder API");
+                    options.DefaultLykkeConfiguration("v1", "KycReminders API");
                 });
 
                 var builder = new ContainerBuilder();
@@ -188,7 +188,7 @@ namespace Lykke.Service.ClientReminder
                 throw new InvalidOperationException($"LogsConnString {dbLogConnectionString} is not filled in settings");
 
             var persistenceManager = new LykkeLogToAzureStoragePersistenceManager(
-                AzureTableStorage<LogEntity>.Create(dbLogConnectionStringManager, "ClientReminderLog", consoleLogger),
+                AzureTableStorage<LogEntity>.Create(dbLogConnectionStringManager, "KycRemindersLog", consoleLogger),
                 consoleLogger);
 
             // Creating slack notification service, which logs own azure queue processing messages to aggregate log
